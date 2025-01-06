@@ -1,0 +1,71 @@
+{
+	"products": [
+		{
+			"id": 1,
+			"title": "Mouse",
+			"description": "This is a computer mouse.",
+			"imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
+			"price": 60,
+			"available": true,
+			"quantity": 20
+		},
+		{
+			"id": 2,
+			"title": "Chair",
+			"description": "This is a gaming chair.",
+			"imgSrc": "https://m.media-amazon.com/images/I/71DlNwhYT1L._AC_SL1500_.jpg",
+			"price": 120,
+			"available": true,
+			"quantity": 20
+		},
+		{
+			"id": 3,
+			"title": "Monitor",
+			"description": "This is a computer monitor.",
+			"imgSrc": "https://m.media-amazon.com/images/I/71RTruFctrL._AC_SL1500_.jpg",
+			"price": 120,
+			"available": false,
+			"quantity": 0
+		},
+		{
+			"id": 4,
+			"title": "Laptop",
+			"description": "This is a Laptop.",
+			"imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
+			"price": 1200,
+			"available": true,
+			"quantity": 20
+		},
+		{
+			"id": 5,
+			"title": "Headphone",
+			"description": "This is a over-ear headphone.",
+			"imgSrc": "https://m.media-amazon.com/images/I/61O7S27O+jL._AC_SL1468_.jpg",
+			"price": 299,
+			"available": true,
+			"quantity": 20
+		},
+		{
+			"id": 6,
+			"title": "PC Dock",
+			"description": "This is a USB-C docking system.",
+			"imgSrc": "https://m.media-amazon.com/images/I/71q6iBTsEqL._AC_SL1500_.jpg",
+			"price": 399,
+			"available": true,
+			"quantity": 20
+		}
+	],
+
+	"cart": [
+		{
+			"id": 1,
+			"productId": 1,
+			"quantity": 5
+		},
+		{
+			"id": 2,
+			"productId": 2,
+			"quantity": 10
+		}
+	]
+}
