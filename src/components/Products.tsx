@@ -1,7 +1,5 @@
 import {
 	Button,
-	Checkbox,
-	FormControlLabel,
 	IconButton,
 	Paper,
 	Stack,
@@ -11,13 +9,14 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
-	TextField,
 	Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { IProduct } from "../interfaces/product";
 import { CiEdit, CiTrash } from "react-icons/ci";
 import DialogModal from "./DialogModal";
+import Delete from "./Delete";
+import ProductForm from "./ProductForm";
 
 export default function Products() {
 	const [productList, setProductList] = useState([]);
@@ -103,45 +102,9 @@ export default function Products() {
 			{openModal && (
 				<DialogModal open closeDialog={handleClose} title={title}>
 					{title === "Delete Product" ? (
-						<Stack spacing={2}>
-							<Typography>Do you want to delete this product?</Typography>
-							<Stack direction="row" justifyContent="space-between" spacing={2}>
-								<Button variant="contained" color="info" fullWidth>
-									No
-								</Button>
-								<Button variant="contained" color="error" fullWidth>
-									Delete
-								</Button>
-							</Stack>
-						</Stack>
+						<Delete />
 					) : (
-						<form>
-							<Stack spacing={2} mt={1}>
-								<TextField id="name" label="Name" variant="outlined" />
-								<TextField id="price" label="Price" variant="outlined" />
-								<TextField
-									id="descriptin"
-									label="Description"
-									variant="outlined"
-								/>
-								<FormControlLabel control={<Checkbox />} label="Available" />
-
-								<TextField
-									id="quantity"
-									label="Quantity"
-									type="number"
-									variant="outlined"
-								/>
-								<Stack direction="row" spacing={2}>
-									<Button variant="contained" color="error" fullWidth>
-										Cancel
-									</Button>
-									<Button variant="contained" color="primary" fullWidth>
-										Submit
-									</Button>
-								</Stack>
-							</Stack>
-						</form>
+						<ProductForm handleClose={handleClose} />
 					)}
 				</DialogModal>
 			)}
