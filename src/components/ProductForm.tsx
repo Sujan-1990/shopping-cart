@@ -27,8 +27,9 @@ export default function ProductForm({
 	const [quantity, setQuantity] = useState(selectedProduct?.quantity ?? "0");
 
 	async function submitFormData(e: any) {
+		e.preventDefault();
 		const data: IProduct = {
-			id: Date.now(),
+			id: selectedProduct?.id ?? Date.now().toString(),
 			title: name,
 			description: description,
 			imgSrc: link,
@@ -36,15 +37,40 @@ export default function ProductForm({
 			available: available,
 			quantity: +quantity,
 		};
+
+		if (selectedProduct) {
+			editProduct(data);
+		} else addProduct(data);
+	}
+
+	async function addProduct(data: IProduct) {
 		try {
 			const result = await fetch("http://localhost:3001/products", {
 				method: "POST",
 				body: JSON.stringify(data),
 			});
-			console.log("submit successfull");
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	async function editProduct(data: IProduct) {
+		try {
+			const result = await fetch(`http://localhost:3001/products/${data.id}`, {
+				method: "PUT",
+				body: JSON.stringify(data),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	function handleAvailability(e: any) {
+		if (!e.target.checked) {
+			setQuantity(0);
+		}
+
+		setAvailable(e.target.checked);
 	}
 
 	return (
@@ -85,7 +111,7 @@ export default function ProductForm({
 				<FormControlLabel
 					control={<Checkbox checked={available} />}
 					label="Available"
-					onChange={(e: any) => setAvailable(e.target.checked)}
+					onChange={(e: any) => handleAvailability(e)}
 				/>
 				{available && (
 					<TextField

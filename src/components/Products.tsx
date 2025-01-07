@@ -58,6 +58,20 @@ export default function Products() {
 		setOpenModal(false);
 	};
 
+	async function deleteProduct() {
+		try {
+			const result = await fetch(
+				`http://localhost:3001/products/${selectedProduct!.id}`,
+				{
+					method: "DELETE",
+				}
+			);
+		} catch (error) {
+			console.log(error);
+		}
+		handleClose();
+	}
+
 	return (
 		<>
 			<Stack spacing={4}>
@@ -104,7 +118,11 @@ export default function Products() {
 			{openModal && (
 				<DialogModal open closeDialog={handleClose} title={title}>
 					{title === "Delete Product" ? (
-						<Delete />
+						<Delete
+							// selectedProduct={selectedProduct!}
+							handleDelete={deleteProduct}
+							handleClose={handleClose}
+						/>
 					) : (
 						<ProductForm
 							selectedProduct={selectedProduct}
