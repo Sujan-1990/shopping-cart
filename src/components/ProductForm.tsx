@@ -11,9 +11,11 @@ import { IProduct } from "../interfaces/product";
 export default function ProductForm({
 	handleClose,
 	selectedProduct,
+	handleFormData,
 }: {
 	handleClose: any;
 	selectedProduct: IProduct | null | undefined;
+	handleFormData: any;
 }) {
 	const [name, setName] = useState(selectedProduct?.title ?? "");
 	const [price, setPrice] = useState(selectedProduct?.price ?? "");
@@ -37,18 +39,21 @@ export default function ProductForm({
 			available: available,
 			quantity: +quantity,
 		};
-
 		if (selectedProduct) {
 			editProduct(data);
 		} else addProduct(data);
+		handleClose();
 	}
 
 	async function addProduct(data: IProduct) {
 		try {
-			const result = await fetch("http://localhost:3001/products", {
+			const response = await fetch("http://localhost:3001/products", {
 				method: "POST",
 				body: JSON.stringify(data),
 			});
+			const result = await response.json();
+
+			handleFormData(result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -56,10 +61,15 @@ export default function ProductForm({
 
 	async function editProduct(data: IProduct) {
 		try {
-			const result = await fetch(`http://localhost:3001/products/${data.id}`, {
-				method: "PUT",
-				body: JSON.stringify(data),
-			});
+			const response = await fetch(
+				`http://localhost:3001/products/${data.id}`,
+				{
+					method: "PUT",
+					body: JSON.stringify(data),
+				}
+			);
+			const result = await response.json();
+			handleFormData(result);
 		} catch (error) {
 			console.log(error);
 		}
@@ -91,6 +101,7 @@ export default function ProductForm({
 					value={price}
 					onChange={(e) => setPrice(e.target.value)}
 					required
+					type="number"
 				/>
 				<TextField
 					id="description"

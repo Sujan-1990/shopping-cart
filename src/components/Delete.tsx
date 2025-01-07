@@ -1,27 +1,30 @@
 import { Button, Stack, Typography } from "@mui/material";
+import { IProduct } from "../interfaces/product";
 
 export default function Delete({
-	// selectedProduct,
+	selectedProduct,
 	handleDelete,
 	handleClose,
 }: {
-	// selectedProduct: IProduct;
+	selectedProduct: IProduct;
 	handleDelete: any;
 	handleClose: any;
 }) {
-	// async function deleteProduct() {
-	// 	try {
-	// 		const result = await fetch(
-	// 			`http://localhost:3001/products/${selectedProduct.id}`,
-	// 			{
-	// 				method: "DELETE",
-	// 			}
-	// 		);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// 	handleClose();
-	// }
+	async function deleteProduct() {
+		try {
+			const response = await fetch(
+				`http://localhost:3001/products/${selectedProduct.id}`,
+				{
+					method: "DELETE",
+				}
+			);
+			const result = await response.json();
+			handleDelete(result);
+		} catch (error) {
+			console.log(error);
+		}
+		handleClose();
+	}
 
 	return (
 		<Stack spacing={2}>
@@ -39,7 +42,7 @@ export default function Delete({
 					variant="contained"
 					color="error"
 					fullWidth
-					onClick={handleDelete}
+					onClick={deleteProduct}
 				>
 					Delete
 				</Button>

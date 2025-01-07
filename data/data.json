@@ -5,18 +5,18 @@
       "title": "Mouse",
       "description": "This is a computer mouse.",
       "imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
-      "price": 60,
+      "price": 122,
       "available": true,
-      "quantity": 20
+      "quantity": 10
     },
     {
       "id": "2",
       "title": "Chair",
       "description": "This is a gaming chair.",
       "imgSrc": "https://m.media-amazon.com/images/I/71DlNwhYT1L._AC_SL1500_.jpg",
-      "price": 122,
+      "price": 125,
       "available": true,
-      "quantity": 22
+      "quantity": 25
     },
     {
       "id": "3",
@@ -29,7 +29,7 @@
     },
     {
       "id": "4",
-      "title": "Laptop",
+      "title": "Laptop 333",
       "description": "This is a Laptop.",
       "imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
       "price": 1200,
@@ -53,6 +53,15 @@
       "price": 399,
       "available": true,
       "quantity": 20
+    },
+    {
+      "id": "1736249352179",
+      "title": "sdfghjk",
+      "description": "easrdtfyu",
+      "imgSrc": "sdrtfyghjk",
+      "price": 5555,
+      "available": false,
+      "quantity": 0
     }
   ],
   "cart": [

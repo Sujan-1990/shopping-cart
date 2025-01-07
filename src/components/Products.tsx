@@ -19,7 +19,7 @@ import Delete from "./Delete";
 import ProductForm from "./ProductForm";
 
 export default function Products() {
-	const [productList, setProductList] = useState([]);
+	const [productList, setProductList] = useState<IProduct[]>([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [title, setTitle] = useState("");
 	const [selectedProduct, setSelectedProduct] = useState<IProduct | null>();
@@ -58,20 +58,47 @@ export default function Products() {
 		setOpenModal(false);
 	};
 
-	async function deleteProduct() {
-		try {
-			const result = await fetch(
-				`http://localhost:3001/products/${selectedProduct!.id}`,
-				{
-					method: "DELETE",
-				}
-			);
-		} catch (error) {
-			console.log(error);
-		}
-		handleClose();
-	}
+	// async function deleteProduct() {
+	// 	try {
+	// 		const result = await fetch(
+	// 			`http://localhost:3001/products/${selectedProduct!.id}`,
+	// 			{
+	// 				method: "DELETE",
+	// 			}
+	// 		);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// 	handleClose();
+	// }
 
+	function handleFormData(data: IProduct) {
+		// console.log(data);
+
+		const index = productList.findIndex(
+			(product: IProduct) => product.id == data.id
+		);
+		if (index >= 0) {
+			// const newProducts = productList.map((item: IProduct) => {
+			// 	if (item.id === data.id) return data;
+			// 	else return item;
+			// });
+			// setProductList(newProducts);
+
+			const newArray = [...productList];
+			newArray[index] = data;
+			setProductList(newArray);
+		} else {
+			setProductList([...productList, data]);
+		}
+	}
+	function handleDelete(data: IProduct) {
+		console.log(data, "deletedData");
+		console.log(productList, "productList");
+		setProductList(
+			productList.filter((product: IProduct) => product.id !== data.id)
+		);
+	}
 	return (
 		<>
 			<Stack spacing={4}>
@@ -119,14 +146,15 @@ export default function Products() {
 				<DialogModal open closeDialog={handleClose} title={title}>
 					{title === "Delete Product" ? (
 						<Delete
-							// selectedProduct={selectedProduct!}
-							handleDelete={deleteProduct}
+							selectedProduct={selectedProduct!}
+							handleDelete={handleDelete}
 							handleClose={handleClose}
 						/>
 					) : (
 						<ProductForm
 							selectedProduct={selectedProduct}
 							handleClose={handleClose}
+							handleFormData={handleFormData}
 						/>
 					)}
 				</DialogModal>
