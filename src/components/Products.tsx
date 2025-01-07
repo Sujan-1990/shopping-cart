@@ -22,6 +22,7 @@ export default function Products() {
 	const [productList, setProductList] = useState([]);
 	const [openModal, setOpenModal] = useState(false);
 	const [title, setTitle] = useState("");
+	const [selectedProduct, setSelectedProduct] = useState<IProduct | null>();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -37,8 +38,9 @@ export default function Products() {
 		fetchData();
 	}, []);
 
-	function handleModal(type: string) {
+	function handleModal(type: string, product?: IProduct) {
 		setOpenModal(true);
+		setSelectedProduct(product);
 		switch (type) {
 			case "add":
 				setTitle("Add Product");
@@ -85,10 +87,10 @@ export default function Products() {
 									)}
 									<TableCell>
 										{/* <IconButton onClick={() => setOpenModal(true)}> */}
-										<IconButton onClick={() => handleModal("edit")}>
+										<IconButton onClick={() => handleModal("edit", p)}>
 											<CiEdit />
 										</IconButton>
-										<IconButton onClick={() => handleModal("delete")}>
+										<IconButton onClick={() => handleModal("delete", p)}>
 											<CiTrash />
 										</IconButton>
 									</TableCell>
@@ -104,7 +106,10 @@ export default function Products() {
 					{title === "Delete Product" ? (
 						<Delete />
 					) : (
-						<ProductForm handleClose={handleClose} />
+						<ProductForm
+							selectedProduct={selectedProduct}
+							handleClose={handleClose}
+						/>
 					)}
 				</DialogModal>
 			)}

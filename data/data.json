@@ -62,6 +62,24 @@
       "price": 2000,
       "available": true,
       "quantity": 10
+    },
+    {
+      "id": 1736233344048,
+      "title": "cup",
+      "description": "cupholder",
+      "imgSrc": "cup.com",
+      "price": 20,
+      "available": false,
+      "quantity": 0
+    },
+    {
+      "id": 1736234611577,
+      "title": "Mouse",
+      "description": "This is a computer mouse.",
+      "imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
+      "price": 60,
+      "available": false,
+      "quantity": 20
     }
   ],
   "cart": [

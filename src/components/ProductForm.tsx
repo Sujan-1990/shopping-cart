@@ -8,27 +8,33 @@ import {
 import { useState } from "react";
 import { IProduct } from "../interfaces/product";
 
-export default function ProductForm({ handleClose }: { handleClose: any }) {
-	const [inputName, setInputName] = useState("");
-	const [inputPrice, setInputPrice] = useState("");
-	const [inputDescription, setInputDescription] = useState("");
-	const [inputImageLink, setImageInputLink] = useState("");
-	const [available, setAvailable] = useState(false);
-	const [inputQuantity, setInputQuantity] = useState("0");
-
-	// const toggleCheckbox = () => {
-	// 	setShowQuantity(true);
-	// };
+export default function ProductForm({
+	handleClose,
+	selectedProduct,
+}: {
+	handleClose: any;
+	selectedProduct: IProduct | null | undefined;
+}) {
+	const [name, setName] = useState(selectedProduct?.title ?? "");
+	const [price, setPrice] = useState(selectedProduct?.price ?? "");
+	const [description, setDescription] = useState(
+		selectedProduct?.description ?? ""
+	);
+	const [link, setLink] = useState(selectedProduct?.imgSrc ?? "");
+	const [available, setAvailable] = useState(
+		selectedProduct?.available ?? false
+	);
+	const [quantity, setQuantity] = useState(selectedProduct?.quantity ?? "0");
 
 	async function submitFormData(e: any) {
 		const data: IProduct = {
 			id: Date.now(),
-			title: inputName,
-			description: inputDescription,
-			imgSrc: inputImageLink,
-			price: +inputPrice,
+			title: name,
+			description: description,
+			imgSrc: link,
+			price: +price,
 			available: available,
-			quantity: +inputQuantity,
+			quantity: +quantity,
 		};
 		try {
 			const result = await fetch("http://localhost:3001/products", {
@@ -48,32 +54,36 @@ export default function ProductForm({ handleClose }: { handleClose: any }) {
 					id="name"
 					label="Name"
 					variant="outlined"
-					value={inputName}
-					onChange={(e) => setInputName(e.target.value)}
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					required
 				/>
 				<TextField
 					id="price"
 					label="Price"
 					variant="outlined"
-					value={inputPrice}
-					onChange={(e) => setInputPrice(e.target.value)}
+					value={price}
+					onChange={(e) => setPrice(e.target.value)}
+					required
 				/>
 				<TextField
 					id="description"
 					label="Description"
 					variant="outlined"
-					value={inputDescription}
-					onChange={(e) => setInputDescription(e.target.value)}
+					value={description}
+					onChange={(e) => setDescription(e.target.value)}
+					required
 				/>
 				<TextField
 					id="imageLink"
 					label="Image Link"
 					variant="outlined"
-					value={inputImageLink}
-					onChange={(e) => setImageInputLink(e.target.value)}
+					value={link}
+					onChange={(e) => setLink(e.target.value)}
+					required
 				/>
 				<FormControlLabel
-					control={<Checkbox />}
+					control={<Checkbox checked={available} />}
 					label="Available"
 					onChange={(e: any) => setAvailable(e.target.checked)}
 				/>
@@ -83,8 +93,8 @@ export default function ProductForm({ handleClose }: { handleClose: any }) {
 						label="Quantity"
 						type="number"
 						variant="outlined"
-						value={inputQuantity}
-						onChange={(e) => setInputQuantity(e.target.value)}
+						value={quantity}
+						onChange={(e) => setQuantity(e.target.value)}
 					/>
 				)}
 				<Stack direction="row" spacing={2}>
@@ -97,7 +107,7 @@ export default function ProductForm({ handleClose }: { handleClose: any }) {
 						Cancel
 					</Button>
 					<Button variant="contained" color="primary" fullWidth type="submit">
-						Submit
+						{selectedProduct?.id ? "Update" : "Add"}
 					</Button>
 				</Stack>
 			</Stack>
