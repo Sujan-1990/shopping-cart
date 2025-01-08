@@ -160,7 +160,6 @@ export default function Products() {
 										<TableCell>{p.quantity}</TableCell>
 									)}
 									<TableCell>
-										{/* <IconButton onClick={() => setOpenModal(true)}> */}
 										<IconButton onClick={() => handleModal("edit", p)}>
 											<CiEdit />
 										</IconButton>
@@ -170,32 +169,6 @@ export default function Products() {
 									</TableCell>
 								</TableRow>
 							))}
-
-							{/* {searchKey && filteredProducts.length > 0 ? (
-								filteredProducts.map((p: IProduct) => (
-									<TableRow key={p.id}>
-										<TableCell>{p.title}</TableCell>
-										<TableCell>${p.price}</TableCell>
-										{p.available == false ? (
-											<TableCell>Out of Stock</TableCell>
-										) : (
-											<TableCell>{p.quantity}</TableCell>
-										)}
-										<TableCell>
-											<IconButton onClick={() => handleModal("edit", p)}>
-												<CiEdit />
-											</IconButton>
-											<IconButton onClick={() => handleModal("delete", p)}>
-												<CiTrash />
-											</IconButton>
-										</TableCell>
-									</TableRow>
-								))
-							) : searchKey && filteredProducts.length == 0 ? (
-								<TableRow>No Products Available</TableRow>
-							) : (
-								<TableRow>No Data Inserted</TableRow>
-							)} */}
 						</TableBody>
 					</Table>
 				</TableContainer>
