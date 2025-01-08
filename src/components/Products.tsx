@@ -145,10 +145,14 @@ export default function Products() {
 						</TableHead>
 						<TableBody>
 							{searchKey.length === 0 && filteredProducts.length === 0 && (
-								<p>No Products Yet.</p>
+								<TableRow>
+									<TableCell colSpan={4}>No Products Yet.</TableCell>
+								</TableRow>
 							)}
 							{searchKey.length > 0 && filteredProducts.length === 0 && (
-								<p>No Products Found</p>
+								<TableRow>
+									<TableCell colSpan={4}>No Products Found</TableCell>
+								</TableRow>
 							)}
 							{filteredProducts.map((p: IProduct) => (
 								<TableRow key={p.id}>
