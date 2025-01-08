@@ -16,24 +16,54 @@ import { ICart } from "../interfaces/cart";
 export default function ProductItem({ product }: { product: IProduct }) {
 	const [showCounter, setShowCounter] = useState(false);
 	const [count, setCount] = useState(0);
-
-	// function showProductCounter() {
-	// 	setShowCounter(true);
-	// }
+	const URL = "http://localhost:3001/cart";
 
 	function handleRemoveProduct() {
 		setCount((a) => a - 1);
 	}
+
 	function handleAddProduct() {
 		setCount((a) => a + 1);
 	}
+
 	function handleCancel() {
 		setShowCounter(false);
 		setCount(0);
 	}
+
+	async function getCartByProductId() {
+		const response = await fetch(URL + "?productId=" + product.id);
+		const cart = await response.json();
+		return cart;
+	}
+
+	async function addToCart(cartData: ICart) {
+		try {
+			await fetch(URL, {
+				method: "POST",
+				body: JSON.stringify(cartData),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async function updateCart(products: ICart[], cartData: ICart) {
+		try {
+			const newResult = {
+				...products[0],
+				quantity: products[0].quantity + cartData.quantity,
+			};
+			await fetch(URL + "/" + products[0].id, {
+				method: "PUT",
+				body: JSON.stringify(newResult),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
 	async function handleAddToCart() {
-		setShowCounter(false);
-		setCount(0);
 		const cartData: ICart = {
 			id: Date.now().toString(),
 			productId: product.id!,
@@ -41,13 +71,18 @@ export default function ProductItem({ product }: { product: IProduct }) {
 			productName: product.title,
 		};
 		try {
-			const response = await fetch("http://localhost:3001/cart", {
-				method: "POST",
-				body: JSON.stringify(cartData),
-			});
+			const cart = await getCartByProductId();
+
+			if (cart.length == 0) {
+				addToCart(cartData);
+			} else {
+				updateCart(cart, cartData);
+			}
 		} catch (error) {
 			console.log(error);
 		}
+		setShowCounter(false);
+		setCount(0);
 	}
 	return (
 		<>
