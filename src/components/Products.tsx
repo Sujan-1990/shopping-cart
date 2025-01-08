@@ -9,6 +9,7 @@ import {
 	TableContainer,
 	TableHead,
 	TableRow,
+	TextField,
 	Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -23,6 +24,13 @@ export default function Products() {
 	const [openModal, setOpenModal] = useState(false);
 	const [title, setTitle] = useState("");
 	const [selectedProduct, setSelectedProduct] = useState<IProduct | null>();
+	const [searchKey, setSearchKey] = useState("");
+	const filteredProducts = productList?.filter(
+		(product: IProduct) =>
+			product.title.toLowerCase().includes(searchKey.toLowerCase()) ||
+			// product.price == +searchKey
+			product.price.toString().includes(searchKey)
+	);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -99,13 +107,32 @@ export default function Products() {
 			productList.filter((product: IProduct) => product.id !== data.id)
 		);
 	}
+	// function handleSearch(e: any) {
+	// 	console.log(productList.filter((product: IProduct) => e === product.title));
+	// 	if (){
+
+	// 	}else{
+	// 		setProductList(productList)
+	// 	}
+
+	// }
+
 	return (
 		<>
 			<Stack spacing={4}>
 				<Typography variant="h3">Products List</Typography>
-				<Button variant="contained" onClick={() => handleModal("add")}>
-					Add
-				</Button>
+				<Stack direction="row" spacing={4}>
+					<TextField
+						id="search"
+						label="Search"
+						variant="outlined"
+						fullWidth
+						onChange={(e) => setSearchKey(e.target.value)}
+					/>
+					<Button variant="contained" onClick={() => handleModal("add")}>
+						Add
+					</Button>
+				</Stack>
 				<TableContainer component={Paper}>
 					<Table>
 						<TableHead>
@@ -117,7 +144,13 @@ export default function Products() {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							{productList.map((p: IProduct) => (
+							{searchKey.length === 0 && filteredProducts.length === 0 && (
+								<p>No Products Yet.</p>
+							)}
+							{searchKey.length > 0 && filteredProducts.length === 0 && (
+								<p>No Products Found</p>
+							)}
+							{filteredProducts.map((p: IProduct) => (
 								<TableRow key={p.id}>
 									<TableCell>{p.title}</TableCell>
 									<TableCell>${p.price}</TableCell>
@@ -137,6 +170,32 @@ export default function Products() {
 									</TableCell>
 								</TableRow>
 							))}
+
+							{/* {searchKey && filteredProducts.length > 0 ? (
+								filteredProducts.map((p: IProduct) => (
+									<TableRow key={p.id}>
+										<TableCell>{p.title}</TableCell>
+										<TableCell>${p.price}</TableCell>
+										{p.available == false ? (
+											<TableCell>Out of Stock</TableCell>
+										) : (
+											<TableCell>{p.quantity}</TableCell>
+										)}
+										<TableCell>
+											<IconButton onClick={() => handleModal("edit", p)}>
+												<CiEdit />
+											</IconButton>
+											<IconButton onClick={() => handleModal("delete", p)}>
+												<CiTrash />
+											</IconButton>
+										</TableCell>
+									</TableRow>
+								))
+							) : searchKey && filteredProducts.length == 0 ? (
+								<TableRow>No Products Available</TableRow>
+							) : (
+								<TableRow>No Data Inserted</TableRow>
+							)} */}
 						</TableBody>
 					</Table>
 				</TableContainer>

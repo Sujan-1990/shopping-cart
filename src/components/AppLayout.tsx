@@ -6,7 +6,12 @@ export default function AppLayout() {
 	return (
 		<>
 			<Header />
-			<Box sx={{ mx: 40, my: 10 }}>
+			<Box
+				sx={{
+					mx: { xs: 5, lg: 10 },
+					my: 10,
+				}}
+			>
 				<Outlet />
 			</Box>
 		</>

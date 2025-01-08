@@ -28,7 +28,7 @@ export default function ProductItem({ product }: { product: IProduct }) {
 
 	return (
 		<>
-			<Card sx={{ width: 250 }}>
+			<Card sx={{ width: 250, height: 350 }}>
 				<CardMedia sx={{ height: 140 }} image={product.imgSrc} title="title" />
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div">
