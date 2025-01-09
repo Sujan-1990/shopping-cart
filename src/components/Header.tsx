@@ -11,16 +11,18 @@ import {
 import React from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaRegCircleUser } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { IUsers } from "../interfaces/users";
 
-export default function Header() {
-	const [auth, setAuth] = React.useState(true);
+export default function Header({
+	authData,
+	setAuthData,
+}: {
+	authData: IUsers | null;
+	setAuthData: React.Dispatch<React.SetStateAction<IUsers | null>>;
+}) {
+	const navigate = useNavigate();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-	// const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	setAuth(event.target.checked);
-	// };
-
 	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -28,6 +30,14 @@ export default function Header() {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	function handleLogout() {
+		handleClose();
+		localStorage.clear();
+		setAuthData(null);
+		navigate("/login");
+
+		console.log("authData==" + authData);
+	}
 
 	return (
 		<>
@@ -57,17 +67,18 @@ export default function Header() {
 									<CiShoppingCart />
 								</NavLink>
 							</IconButton>
-							<NavLink to="/login">
-								<Button variant="outlined" color="warning">
-									Login
-								</Button>
-							</NavLink>
+							{!authData?.id ? (
+								<NavLink to="/login">
+									<Button variant="outlined" color="warning">
+										Login
+									</Button>
+								</NavLink>
+							) : (
+								<Box>
+									<IconButton onClick={handleMenu}>
+										<FaRegCircleUser />
+									</IconButton>
 
-							<Box>
-								<IconButton onClick={handleMenu}>
-									<FaRegCircleUser />
-								</IconButton>
-								{auth && (
 									<Menu
 										id="menu-appbar"
 										anchorEl={anchorEl}
@@ -83,11 +94,11 @@ export default function Header() {
 										open={Boolean(anchorEl)}
 										onClose={handleClose}
 									>
-										<MenuItem>Profile</MenuItem>
-										<MenuItem>My account</MenuItem>
+										<MenuItem>{authData?.name}</MenuItem>
+										<MenuItem onClick={handleLogout}>Logout</MenuItem>
 									</Menu>
-								)}
-							</Box>
+								</Box>
+							)}
 						</Stack>
 					</Toolbar>
 				</AppBar>

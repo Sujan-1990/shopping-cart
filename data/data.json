@@ -1,113 +1,130 @@
 {
-	"products": [
-		{
-			"id": "1",
-			"title": "Mouse",
-			"description": "This is a computer mouse.",
-			"imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
-			"price": 122,
-			"available": true,
-			"quantity": 10
-		},
-		{
-			"id": "2",
-			"title": "Chair",
-			"description": "This is a gaming chair.",
-			"imgSrc": "https://m.media-amazon.com/images/I/71DlNwhYT1L._AC_SL1500_.jpg",
-			"price": 125,
-			"available": true,
-			"quantity": 25
-		},
-		{
-			"id": "3",
-			"title": "Monitor",
-			"description": "This is a computer monitor.",
-			"imgSrc": "https://m.media-amazon.com/images/I/71RTruFctrL._AC_SL1500_.jpg",
-			"price": 120,
-			"available": false,
-			"quantity": 0
-		},
-		{
-			"id": "4",
-			"title": "Laptop 333",
-			"description": "This is a Laptop.",
-			"imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
-			"price": 1200,
-			"available": true,
-			"quantity": 20
-		},
-		{
-			"id": "5",
-			"title": "Headphone",
-			"description": "This is a over-ear headphone.",
-			"imgSrc": "https://m.media-amazon.com/images/I/61O7S27O+jL._AC_SL1468_.jpg",
-			"price": 299,
-			"available": true,
-			"quantity": 20
-		},
-		{
-			"id": "6",
-			"title": "PC Dock",
-			"description": "This is a USB-C docking system.",
-			"imgSrc": "https://m.media-amazon.com/images/I/71q6iBTsEqL._AC_SL1500_.jpg",
-			"price": 399,
-			"available": true,
-			"quantity": 20
-		},
-		{
-			"id": "1736249352179",
-			"title": "sdfghjk",
-			"description": "easrdtfyu",
-			"imgSrc": "sdrtfyghjk",
-			"price": 5555,
-			"available": false,
-			"quantity": 0
-		}
-	],
-	"cart": [
-		{
-			"id": "1736340225680",
-			"productId": "4",
-			"quantity": 2,
-			"productName": "Laptop 333"
-		}
-	],
-	"orders": [
-		{
-			"id": "1736340057663",
-			"createdAt": "2025-01-08T12:40:57.663Z",
-			"items": [
-				{
-					"id": "1736340044483",
-					"productId": "3",
-					"quantity": 2,
-					"productName": "Monitor"
-				},
-				{
-					"id": "1736340047973",
-					"productId": "6",
-					"quantity": 1,
-					"productName": "PC Dock"
-				}
-			]
-		}
-	],
-	"users": [
-		{
-			"id": "810a",
-			"name": "adam eve",
-			"email": "ae@mail",
-			"password": "asdf",
-			"gender": "female",
-			"dob": null
-		},
-		{
-			"id": "8f8e",
-			"name": "adam eve",
-			"email": "ae@mail",
-			"password": "zsd",
-			"gender": "male",
-			"dob": "2025-01-01T00:00:00.000Z"
-		}
-	]
+  "products": [
+    {
+      "id": "1",
+      "title": "Mouse",
+      "description": "This is a computer mouse.",
+      "imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
+      "price": 122,
+      "available": true,
+      "quantity": 10
+    },
+    {
+      "id": "2",
+      "title": "Chair",
+      "description": "This is a gaming chair.",
+      "imgSrc": "https://m.media-amazon.com/images/I/71DlNwhYT1L._AC_SL1500_.jpg",
+      "price": 125,
+      "available": true,
+      "quantity": 25
+    },
+    {
+      "id": "3",
+      "title": "Monitor",
+      "description": "This is a computer monitor.",
+      "imgSrc": "https://m.media-amazon.com/images/I/71RTruFctrL._AC_SL1500_.jpg",
+      "price": 120,
+      "available": false,
+      "quantity": 0
+    },
+    {
+      "id": "4",
+      "title": "Laptop 333",
+      "description": "This is a Laptop.",
+      "imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
+      "price": 1200,
+      "available": true,
+      "quantity": 20
+    },
+    {
+      "id": "5",
+      "title": "Headphone",
+      "description": "This is a over-ear headphone.",
+      "imgSrc": "https://m.media-amazon.com/images/I/61O7S27O+jL._AC_SL1468_.jpg",
+      "price": 299,
+      "available": true,
+      "quantity": 20
+    },
+    {
+      "id": "6",
+      "title": "PC Dock",
+      "description": "This is a USB-C docking system.",
+      "imgSrc": "https://m.media-amazon.com/images/I/71q6iBTsEqL._AC_SL1500_.jpg",
+      "price": 399,
+      "available": true,
+      "quantity": 20
+    },
+    {
+      "id": "1736249352179",
+      "title": "sdfghjk",
+      "description": "easrdtfyu",
+      "imgSrc": "sdrtfyghjk",
+      "price": 5555,
+      "available": false,
+      "quantity": 0
+    }
+  ],
+  "cart": [],
+  "orders": [
+    {
+      "id": "1736340057663",
+      "createdAt": "2025-01-08T12:40:57.663Z",
+      "items": [
+        {
+          "id": "1736340044483",
+          "productId": "3",
+          "quantity": 2,
+          "productName": "Monitor"
+        },
+        {
+          "id": "1736340047973",
+          "productId": "6",
+          "quantity": 1,
+          "productName": "PC Dock"
+        }
+      ]
+    },
+    {
+      "id": "1736416227467",
+      "createdAt": "2025-01-09T09:50:27.467Z",
+      "items": [
+        {
+          "id": "1736340225680",
+          "productId": "4",
+          "quantity": 2,
+          "productName": "Laptop 333"
+        },
+        {
+          "id": "1736416219905",
+          "productId": "2",
+          "quantity": 1,
+          "productName": "Chair"
+        },
+        {
+          "id": "1736416221621",
+          "productId": "1",
+          "quantity": 1,
+          "productName": "Mouse"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "810a",
+      "name": "adam eve",
+      "email": "ae@mail.com",
+      "password": "asdf",
+      "gender": "female",
+      "dob": null
+    },
+    {
+      "id": "8f8e",
+      "name": "adam eve",
+      "email": "ae@mail.com",
+      "password": "zsd",
+      "gender": "male",
+      "dob": "2025-01-01T00:00:00.000Z"
+    }
+  ]
 }
