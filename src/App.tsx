@@ -5,6 +5,8 @@ import Orders from "./components/Orders";
 import Cart from "./components/Cart";
 import Home from "./components/Home";
 import Products from "./components/Products";
+import Login from "./components/Login";
+import Register from "./components/Register";
 function App() {
 	return (
 		<BrowserRouter>
@@ -14,6 +16,8 @@ function App() {
 					<Route path="/products" element={<Products />} />
 					<Route path="/orders" element={<Orders />} />
 					<Route path="/cart" element={<Cart />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
 					<Route path="*" element={<PageNotFound />} />
 				</Route>
 			</Routes>

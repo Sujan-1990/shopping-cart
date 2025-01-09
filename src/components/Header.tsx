@@ -1,5 +1,6 @@
 import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import { CiShoppingCart } from "react-icons/ci";
+import { FaRegCircleUser } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
@@ -29,6 +30,11 @@ export default function Header() {
 							<IconButton>
 								<NavLink to="/cart">
 									<CiShoppingCart />
+								</NavLink>
+							</IconButton>
+							<IconButton>
+								<NavLink to="/login">
+									<FaRegCircleUser />
 								</NavLink>
 							</IconButton>
 						</Stack>

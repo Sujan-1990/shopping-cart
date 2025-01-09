@@ -91,5 +91,23 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "id": "810a",
+      "name": "adam eve",
+      "email": "ae@mail",
+      "password": "asdf",
+      "gender": "",
+      "dob": null
+    },
+    {
+      "id": "8f8e",
+      "name": "adam eve",
+      "email": "ae@mail",
+      "password": "zsd",
+      "gender": "male",
+      "dob": "2025-01-01T00:00:00.000Z"
+    }
   ]
 }
