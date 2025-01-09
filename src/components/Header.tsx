@@ -1,9 +1,34 @@
-import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import {
+	AppBar,
+	Box,
+	Button,
+	IconButton,
+	Menu,
+	MenuItem,
+	Stack,
+	Toolbar,
+} from "@mui/material";
+import React from "react";
 import { CiShoppingCart } from "react-icons/ci";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
+	const [auth, setAuth] = React.useState(true);
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+	// const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	// 	setAuth(event.target.checked);
+	// };
+
+	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	return (
 		<>
 			<Box sx={{ flexGrow: 1 }}>
@@ -32,11 +57,37 @@ export default function Header() {
 									<CiShoppingCart />
 								</NavLink>
 							</IconButton>
-							<IconButton>
-								<NavLink to="/login">
+							<NavLink to="/login">
+								<Button variant="outlined" color="warning">
+									Login
+								</Button>
+							</NavLink>
+
+							<Box>
+								<IconButton onClick={handleMenu}>
 									<FaRegCircleUser />
-								</NavLink>
-							</IconButton>
+								</IconButton>
+								{auth && (
+									<Menu
+										id="menu-appbar"
+										anchorEl={anchorEl}
+										anchorOrigin={{
+											vertical: "top",
+											horizontal: "right",
+										}}
+										keepMounted
+										transformOrigin={{
+											vertical: "top",
+											horizontal: "right",
+										}}
+										open={Boolean(anchorEl)}
+										onClose={handleClose}
+									>
+										<MenuItem>Profile</MenuItem>
+										<MenuItem>My account</MenuItem>
+									</Menu>
+								)}
+							</Box>
 						</Stack>
 					</Toolbar>
 				</AppBar>
