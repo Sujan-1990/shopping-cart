@@ -66,28 +66,30 @@
   ],
   "cart": [
     {
-      "id": "1736319273005",
-      "productId": "2",
-      "quantity": 3,
-      "productName": "Chair"
-    },
+      "id": "1736340225680",
+      "productId": "4",
+      "quantity": 2,
+      "productName": "Laptop 333"
+    }
+  ],
+  "orders": [
     {
-      "id": "1736321225471",
-      "productId": "1",
-      "quantity": 3,
-      "productName": "Mouse"
-    },
-    {
-      "id": "1736321274844",
-      "productId": "3",
-      "quantity": 9,
-      "productName": "Monitor"
-    },
-    {
-      "id": "1736329569514",
-      "productId": "6",
-      "quantity": 14,
-      "productName": "PC Dock"
+      "id": "1736340057663",
+      "createdAt": "2025-01-08T12:40:57.663Z",
+      "items": [
+        {
+          "id": "1736340044483",
+          "productId": "3",
+          "quantity": 2,
+          "productName": "Monitor"
+        },
+        {
+          "id": "1736340047973",
+          "productId": "6",
+          "quantity": 1,
+          "productName": "PC Dock"
+        }
+      ]
     }
   ]
 }
