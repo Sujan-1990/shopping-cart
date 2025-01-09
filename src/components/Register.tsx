@@ -1,5 +1,4 @@
 import {
-	Box,
 	Button,
 	FormControl,
 	InputLabel,
@@ -11,27 +10,33 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { IUsers } from "../interfaces/users";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+	const navigate = useNavigate();
 	const [fullName, setFullName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [gender, setGender] = useState("");
+	const [role, setRole] = useState("");
 	const [dob, setDob] = useState("");
 
-	async function handleSubmit() {
+	async function handleSubmit(e: any) {
+		e.preventDefault();
 		const userInformation: IUsers = {
 			name: fullName,
 			email: email,
 			password: password,
 			gender: gender,
+			role: role,
 			dob: new Date(dob),
 		};
 		try {
-			const response = await fetch("http://localhost:3001/users", {
+			await fetch("http://localhost:3001/users", {
 				method: "POST",
 				body: JSON.stringify(userInformation),
 			});
+			navigate("/login");
 		} catch (error) {
 			console.log(error);
 		}
@@ -45,7 +50,7 @@ export default function Register() {
 			justifyContent="center"
 		>
 			<Typography variant="h4">Register</Typography>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={(e) => handleSubmit(e)}>
 				<Stack
 					spacing={2}
 					sx={{
@@ -84,10 +89,10 @@ export default function Register() {
 					/>
 
 					<FormControl fullWidth>
-						<InputLabel id="demo-simple-select-label">Gender *</InputLabel>
+						<InputLabel id="gender">Gender *</InputLabel>
 						<Select
-							labelId="demo-simple-select-label"
-							id="demo-simple-select"
+							labelId="gender"
+							id="gender"
 							value={gender}
 							label="Gender"
 							onChange={(e) => setGender(e.target.value)}
@@ -98,6 +103,24 @@ export default function Register() {
 							</MenuItem>
 							<MenuItem key="female" value="female">
 								Female
+							</MenuItem>
+						</Select>
+					</FormControl>
+					<FormControl fullWidth>
+						<InputLabel id="role">Role *</InputLabel>
+						<Select
+							labelId="role"
+							id="role"
+							value={role}
+							label="Role"
+							onChange={(e) => setRole(e.target.value)}
+							required
+						>
+							<MenuItem key="customer" value="customer">
+								Customer
+							</MenuItem>
+							<MenuItem key="admin" value="admin">
+								Admin
 							</MenuItem>
 						</Select>
 					</FormControl>

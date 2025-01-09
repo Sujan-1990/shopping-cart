@@ -35,8 +35,6 @@ export default function Header({
 		localStorage.clear();
 		setAuthData(null);
 		navigate("/login");
-
-		console.log("authData==" + authData);
 	}
 
 	return (
@@ -56,12 +54,17 @@ export default function Header({
 							</IconButton>
 						</NavLink>
 						<Stack direction="row" alignItems="center" spacing={1}>
-							<Button color="inherit">
-								<NavLink to="/products">Products</NavLink>
-							</Button>
-							<Button color="inherit">
-								<NavLink to="/orders">Orders</NavLink>
-							</Button>
+							{authData?.role === "admin" && (
+								<>
+									<Button color="inherit">
+										<NavLink to="/products">Products</NavLink>
+									</Button>
+									<Button color="inherit">
+										<NavLink to="/orders">Orders</NavLink>
+									</Button>
+								</>
+							)}
+
 							<IconButton>
 								<NavLink to="/cart">
 									<CiShoppingCart />
