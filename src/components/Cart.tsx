@@ -13,9 +13,10 @@ import {
 import { useEffect, useState } from "react";
 import { ICart } from "../interfaces/cart";
 import { IOrder } from "../interfaces/order";
+import { IProduct } from "../interfaces/product";
 
 export default function Cart() {
-	const [cart, setCart] = useState([]);
+	const [cartList, setCartList] = useState([]);
 	const [isOrderSuccess, setIsOrderSuccess] = useState(false);
 
 	useEffect(() => {
@@ -23,7 +24,7 @@ export default function Cart() {
 			try {
 				const response = await fetch("http://localhost:3001/cart");
 				const result = await response.json();
-				setCart(result);
+				setCartList(result);
 			} catch (error) {
 				console.error("Error fetching products:", error);
 			}
@@ -55,7 +56,7 @@ export default function Cart() {
 		const order: IOrder = {
 			id: Date.now().toString(),
 			createdAt: new Date(),
-			items: cart,
+			items: cartList,
 		};
 
 		await placeOrder(order);
@@ -64,13 +65,43 @@ export default function Cart() {
 
 		console.log("Data removed");
 	}
+	async function getProduct(cart: ICart) {
+		try {
+			const response = await fetch(
+				`http://localhost:3001/products/${cart.productId}`
+			);
+			const product = await response.json();
+			const updatedProduct: IProduct = {
+				...product,
+				quantity: product.quantity + cart.quantity,
+			};
+			return updatedProduct;
+		} catch (error) {
+			console.log(error);
+		}
+	}
+	async function updateProduct(product: IProduct) {
+		try {
+			await fetch(`http://localhost:3001/products/${product.id}`, {
+				method: "PUT",
+				body: JSON.stringify(product),
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
-	async function deleteItem(item: ICart) {
-		await fetch(`http://localhost:3001/cart/${item.id}`, {
-			method: "DELETE",
-		});
-
-		setCart(cart.filter((x: ICart) => x.id != item.id));
+	async function deleteCart(cart: ICart) {
+		try {
+			await fetch(`http://localhost:3001/cart/${cart.id}`, {
+				method: "DELETE",
+			});
+			setCartList(cartList.filter((x: ICart) => x.id != cart.id));
+			const product = await getProduct(cart);
+			product && updateProduct(product);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	return (
@@ -92,7 +123,7 @@ export default function Cart() {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{cart.map((item: ICart) => (
+								{cartList.map((item: ICart) => (
 									<TableRow key={item.id}>
 										<TableCell>{item.productName}</TableCell>
 										<TableCell>{item.quantity}</TableCell>
@@ -106,7 +137,7 @@ export default function Cart() {
 												variant="contained"
 												color="error"
 												sx={{ ml: 4 }}
-												onClick={() => deleteItem(item)}
+												onClick={() => deleteCart(item)}
 											>
 												Delete
 											</Button>
@@ -116,7 +147,7 @@ export default function Cart() {
 							</TableBody>
 						</Table>
 					</TableContainer>
-					{cart.length > 0 ? (
+					{cartList.length > 0 ? (
 						<Button
 							variant="contained"
 							sx={{ width: "fit-content" }}
