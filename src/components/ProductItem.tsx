@@ -14,6 +14,7 @@ import { IProduct } from "../interfaces/product";
 import { ICart } from "../interfaces/cart";
 
 export default function ProductItem({ product }: { product: IProduct }) {
+	const [productItem, setProductItem] = useState(product);
 	const [showCounter, setShowCounter] = useState(false);
 	const [count, setCount] = useState(0);
 	const URL = "http://localhost:3001/cart";
@@ -32,51 +33,57 @@ export default function ProductItem({ product }: { product: IProduct }) {
 	}
 
 	async function getCartByProductId() {
-		const response = await fetch(URL + "?productId=" + product.id);
+		const response = await fetch(URL + "?productId=" + productItem.id);
 		const cart = await response.json();
 		return cart;
 	}
 
 	async function addToCart(cartData: ICart) {
 		try {
-			await fetch(URL, {
+			const response = await fetch(URL, {
 				method: "POST",
 				body: JSON.stringify(cartData),
 			});
+			const result = await response.json();
+			return result;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
-	async function updateCart(products: ICart[], cartData: ICart) {
+	async function updateCart(cart: ICart[], cartData: ICart) {
 		try {
-			const newResult = {
-				...products[0],
-				quantity: products[0].quantity + cartData.quantity,
+			const cartToBeUpdated = {
+				...cart[0],
+				quantity: cart[0].quantity + cartData.quantity,
 			};
-			await fetch(URL + "/" + products[0].id, {
+			const response = await fetch(URL + "/" + cart[0].id, {
 				method: "PUT",
-				body: JSON.stringify(newResult),
+				body: JSON.stringify(cartToBeUpdated),
 			});
+			const updatedCart = await response.json();
+			return updatedCart;
 		} catch (error) {
 			console.log(error);
 		}
 	}
 
 	async function handleAddToCart() {
-		const cartData: ICart = {
+		const newCart: ICart = {
 			id: Date.now().toString(),
-			productId: product.id!,
+			productId: productItem.id!,
 			quantity: count,
-			productName: product.title,
+			productName: productItem.title,
 		};
 		try {
 			const cart = await getCartByProductId();
 
 			if (cart.length == 0) {
-				addToCart(cartData);
+				const newCartItem = await addToCart(newCart);
+				updateProduct(newCartItem);
 			} else {
-				updateCart(cart, cartData);
+				const updatedCart = await updateCart(cart, newCart);
+				if (updatedCart) updateProduct(newCart);
 			}
 		} catch (error) {
 			console.log(error);
@@ -84,21 +91,40 @@ export default function ProductItem({ product }: { product: IProduct }) {
 		setShowCounter(false);
 		setCount(0);
 	}
+
+	async function updateProduct(cartData: ICart) {
+		const updatedProduct: IProduct = {
+			...product,
+			quantity: productItem.quantity - cartData.quantity,
+		};
+		await fetch(`http://localhost:3001/products/${productItem.id}`, {
+			method: "PUT",
+			body: JSON.stringify(updatedProduct),
+		});
+
+		setProductItem(updatedProduct);
+	}
 	return (
 		<>
 			<Card sx={{ width: 250, height: 350 }}>
-				<CardMedia sx={{ height: 140 }} image={product.imgSrc} title="title" />
+				<CardMedia
+					sx={{ height: 140 }}
+					image={productItem.imgSrc}
+					title="title"
+				/>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div">
-						{product.title}
+						{productItem.title}
 					</Typography>
 					<Typography variant="body2" sx={{ color: "text.secondary" }}>
-						{product.description}
+						{productItem.description}
 					</Typography>
 				</CardContent>
 
 				<CardActions sx={{ justifyContent: "center" }}>
-					{!showCounter ? (
+					{productItem.quantity == 0 ? (
+						"out of stock"
+					) : !showCounter ? (
 						<Button
 							variant="contained"
 							onClick={() => setShowCounter(true)}
@@ -114,13 +140,18 @@ export default function ProductItem({ product }: { product: IProduct }) {
 								</IconButton>
 
 								<Typography>{count}</Typography>
-								<IconButton onClick={handleAddProduct}>
+								<IconButton
+									onClick={handleAddProduct}
+									disabled={count >= productItem.quantity}
+								>
 									<FaPlus />
 								</IconButton>
 							</Stack>
 							<Stack direction="row">
 								<Button onClick={handleCancel}>Cancel</Button>
-								<Button onClick={handleAddToCart}>Add</Button>
+								<Button onClick={handleAddToCart} disabled={count == 0}>
+									Add
+								</Button>
 							</Stack>
 						</Stack>
 					)}
