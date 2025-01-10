@@ -65,6 +65,14 @@ export default function Cart() {
 		console.log("Data removed");
 	}
 
+	async function deleteItem(item: ICart) {
+		await fetch(`http://localhost:3001/cart/${item.id}`, {
+			method: "DELETE",
+		});
+
+		setCart(cart.filter((x: ICart) => x.id != item.id));
+	}
+
 	return (
 		<Stack spacing={4}>
 			{!isOrderSuccess ? (
@@ -76,6 +84,11 @@ export default function Cart() {
 								<TableRow>
 									<TableCell>Item Name</TableCell>
 									<TableCell>Quantity</TableCell>
+									<TableCell
+										sx={{ display: "flex", justifyContent: "space-around" }}
+									>
+										Actions
+									</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
@@ -83,18 +96,37 @@ export default function Cart() {
 									<TableRow key={item.id}>
 										<TableCell>{item.productName}</TableCell>
 										<TableCell>{item.quantity}</TableCell>
+										<TableCell
+											sx={{ display: "flex", justifyContent: "space-around" }}
+										>
+											<Button variant="contained" color="info">
+												Edit
+											</Button>
+											<Button
+												variant="contained"
+												color="error"
+												sx={{ ml: 4 }}
+												onClick={() => deleteItem(item)}
+											>
+												Delete
+											</Button>
+										</TableCell>
 									</TableRow>
 								))}
 							</TableBody>
 						</Table>
 					</TableContainer>
-					<Button
-						variant="contained"
-						sx={{ width: "fit-content" }}
-						onClick={order}
-					>
-						Place Order
-					</Button>
+					{cart.length > 0 ? (
+						<Button
+							variant="contained"
+							sx={{ width: "fit-content" }}
+							onClick={order}
+						>
+							Place Order
+						</Button>
+					) : (
+						"Cart is Empty"
+					)}
 				</>
 			) : (
 				<Typography variant="h2">Order Successfull</Typography>

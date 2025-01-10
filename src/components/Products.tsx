@@ -66,33 +66,11 @@ export default function Products() {
 		setOpenModal(false);
 	};
 
-	// async function deleteProduct() {
-	// 	try {
-	// 		const result = await fetch(
-	// 			`http://localhost:3001/products/${selectedProduct!.id}`,
-	// 			{
-	// 				method: "DELETE",
-	// 			}
-	// 		);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// 	handleClose();
-	// }
-
 	function handleFormData(data: IProduct) {
-		// console.log(data);
-
 		const index = productList.findIndex(
 			(product: IProduct) => product.id == data.id
 		);
 		if (index >= 0) {
-			// const newProducts = productList.map((item: IProduct) => {
-			// 	if (item.id === data.id) return data;
-			// 	else return item;
-			// });
-			// setProductList(newProducts);
-
 			const newArray = [...productList];
 			newArray[index] = data;
 			setProductList(newArray);
@@ -107,15 +85,6 @@ export default function Products() {
 			productList.filter((product: IProduct) => product.id !== data.id)
 		);
 	}
-	// function handleSearch(e: any) {
-	// 	console.log(productList.filter((product: IProduct) => e === product.title));
-	// 	if (){
-
-	// 	}else{
-	// 		setProductList(productList)
-	// 	}
-
-	// }
 
 	return (
 		<>

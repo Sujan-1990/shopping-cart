@@ -16,7 +16,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/71DlNwhYT1L._AC_SL1500_.jpg",
       "price": 125,
       "available": true,
-      "quantity": 20
+      "quantity": 8
     },
     {
       "id": "3",
@@ -34,7 +34,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
       "price": 1200,
       "available": true,
-      "quantity": 20
+      "quantity": 14
     },
     {
       "id": "5",
@@ -43,7 +43,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/61O7S27O+jL._AC_SL1468_.jpg",
       "price": 299,
       "available": true,
-      "quantity": 20
+      "quantity": 14
     },
     {
       "id": "6",
@@ -52,26 +52,10 @@
       "imgSrc": "https://m.media-amazon.com/images/I/71q6iBTsEqL._AC_SL1500_.jpg",
       "price": 399,
       "available": true,
-      "quantity": 20
-    },
-    {
-      "id": "1736249352179",
-      "title": "sdfghjk",
-      "description": "easrdtfyu",
-      "imgSrc": "sdrtfyghjk",
-      "price": 5555,
-      "available": false,
-      "quantity": 0
+      "quantity": 11
     }
   ],
-  "cart": [
-    {
-      "id": "1736490721321",
-      "productId": "1",
-      "quantity": 6,
-      "productName": "Mouse"
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "id": "1736340057663",
