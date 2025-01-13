@@ -135,7 +135,7 @@ export default function ProductItem({ product }: { product: IProduct }) {
 					) : (
 						<Stack>
 							<Stack direction="row" alignItems="center" spacing={2}>
-								<IconButton onClick={handleRemoveProduct} disabled={count <= 0}>
+								<IconButton onClick={handleRemoveProduct} disabled={count == 0}>
 									<FaMinus />
 								</IconButton>
 

@@ -15,12 +15,11 @@ import { useEffect, useState } from "react";
 import { ICart } from "../interfaces/cart";
 import { IOrder } from "../interfaces/order";
 import { IProduct } from "../interfaces/product";
+import CartItem from "./CartItem";
 
 export default function Cart() {
 	const [cartList, setCartList] = useState([]);
 	const [isOrderSuccess, setIsOrderSuccess] = useState(false);
-	const [edit, setEdit] = useState(false);
-	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -32,7 +31,6 @@ export default function Cart() {
 				console.error("Error fetching products:", error);
 			}
 		};
-
 		fetchData();
 	}, []);
 
@@ -106,10 +104,6 @@ export default function Cart() {
 			console.log(error);
 		}
 	}
-	function handleRemoveQuantity(item: ICart) {
-		setCount((a) => item.quantity - 1);
-	}
-	function handleAddQuantity() {}
 
 	return (
 		<Stack spacing={4}>
@@ -131,58 +125,7 @@ export default function Cart() {
 							</TableHead>
 							<TableBody>
 								{cartList.map((item: ICart) => (
-									<TableRow key={item.id}>
-										<TableCell>{item.productName}</TableCell>
-										<TableCell>
-											{!edit ? (
-												item.quantity
-											) : (
-												<Stack direction="row">
-													<IconButton
-														onClick={() => handleRemoveQuantity(item)}
-													>
-														-
-													</IconButton>
-													{count}
-													<IconButton onClick={handleAddQuantity}>+</IconButton>
-												</Stack>
-											)}
-										</TableCell>
-										<TableCell
-											sx={{ display: "flex", justifyContent: "space-around" }}
-										>
-											{!edit ? (
-												<Button
-													variant="contained"
-													color="info"
-													onClick={() => setEdit(true)}
-												>
-													Edit
-												</Button>
-											) : (
-												<Stack direction="row" spacing={2}>
-													<Button variant="contained" color="primary">
-														Save
-													</Button>
-													<Button
-														variant="contained"
-														color="error"
-														onClick={() => setEdit(false)}
-													>
-														Cancel
-													</Button>
-												</Stack>
-											)}
-											<Button
-												variant="contained"
-												color="error"
-												sx={{ ml: 4 }}
-												onClick={() => deleteCart(item)}
-											>
-												Delete
-											</Button>
-										</TableCell>
-									</TableRow>
+									<CartItem key={item.id} cart={item} deleteCart={deleteCart} />
 								))}
 							</TableBody>
 						</Table>
