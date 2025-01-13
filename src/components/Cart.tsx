@@ -1,5 +1,6 @@
 import {
 	Button,
+	IconButton,
 	Paper,
 	Stack,
 	Table,
@@ -18,6 +19,8 @@ import { IProduct } from "../interfaces/product";
 export default function Cart() {
 	const [cartList, setCartList] = useState([]);
 	const [isOrderSuccess, setIsOrderSuccess] = useState(false);
+	const [edit, setEdit] = useState(false);
+	const [count, setCount] = useState(0);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -103,6 +106,10 @@ export default function Cart() {
 			console.log(error);
 		}
 	}
+	function handleRemoveQuantity(item: ICart) {
+		setCount((a) => item.quantity - 1);
+	}
+	function handleAddQuantity() {}
 
 	return (
 		<Stack spacing={4}>
@@ -126,13 +133,46 @@ export default function Cart() {
 								{cartList.map((item: ICart) => (
 									<TableRow key={item.id}>
 										<TableCell>{item.productName}</TableCell>
-										<TableCell>{item.quantity}</TableCell>
+										<TableCell>
+											{!edit ? (
+												item.quantity
+											) : (
+												<Stack direction="row">
+													<IconButton
+														onClick={() => handleRemoveQuantity(item)}
+													>
+														-
+													</IconButton>
+													{count}
+													<IconButton onClick={handleAddQuantity}>+</IconButton>
+												</Stack>
+											)}
+										</TableCell>
 										<TableCell
 											sx={{ display: "flex", justifyContent: "space-around" }}
 										>
-											<Button variant="contained" color="info">
-												Edit
-											</Button>
+											{!edit ? (
+												<Button
+													variant="contained"
+													color="info"
+													onClick={() => setEdit(true)}
+												>
+													Edit
+												</Button>
+											) : (
+												<Stack direction="row" spacing={2}>
+													<Button variant="contained" color="primary">
+														Save
+													</Button>
+													<Button
+														variant="contained"
+														color="error"
+														onClick={() => setEdit(false)}
+													>
+														Cancel
+													</Button>
+												</Stack>
+											)}
 											<Button
 												variant="contained"
 												color="error"
