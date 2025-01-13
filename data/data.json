@@ -7,7 +7,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
       "price": 122,
       "available": true,
-      "quantity": 5
+      "quantity": 8
     },
     {
       "id": "2",
@@ -29,12 +29,12 @@
     },
     {
       "id": "4",
-      "title": "Laptop 333",
+      "title": "Laptop",
       "description": "This is a Laptop.",
       "imgSrc": "https://m.media-amazon.com/images/I/815uX7wkOZS._AC_SL1500_.jpg",
       "price": 1200,
       "available": true,
-      "quantity": 9
+      "quantity": 22
     },
     {
       "id": "5",
@@ -43,7 +43,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/61O7S27O+jL._AC_SL1468_.jpg",
       "price": 299,
       "available": true,
-      "quantity": 10
+      "quantity": 8
     },
     {
       "id": "6",
@@ -55,7 +55,14 @@
       "quantity": 11
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "1736771354841",
+      "productId": "1",
+      "quantity": 3,
+      "productName": "Mouse"
+    }
+  ],
   "orders": [
     {
       "id": "1736764688211",
@@ -68,21 +75,42 @@
           "productName": "Mouse"
         }
       ]
+    },
+    {
+      "id": "1736766906704",
+      "createdAt": "2025-01-13T11:15:06.704Z",
+      "items": [
+        {
+          "id": "1736766901364",
+          "productId": "4",
+          "quantity": 2,
+          "productName": "Laptop"
+        }
+      ]
+    },
+    {
+      "id": "1736770827744",
+      "createdAt": "2025-01-13T12:20:27.744Z",
+      "items": [
+        {
+          "id": "1736770819491",
+          "productId": "4",
+          "quantity": 1,
+          "productName": "Laptop"
+        },
+        {
+          "id": "1736770822535",
+          "productId": "5",
+          "quantity": 2,
+          "productName": "Headphone"
+        }
+      ]
     }
   ],
   "users": [
     {
-      "id": "cf11",
-      "name": "adam eve",
-      "email": "ae@mail.com",
-      "password": "asd123",
-      "gender": "male",
-      "role": "customer",
-      "dob": "2025-01-01T00:00:00.000Z"
-    },
-    {
       "id": "1f1c",
-      "name": "szdfghj",
+      "name": "Sujan",
       "email": "aa@a.com",
       "password": "111",
       "gender": "male",

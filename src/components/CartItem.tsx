@@ -79,7 +79,7 @@ export default function CartItem({
 				{!edit ? (
 					cartItem.quantity
 				) : (
-					<Stack direction="row">
+					<Stack direction="row" alignItems="center">
 						<IconButton onClick={handleRemoveQuantity} disabled={count == 0}>
 							-
 						</IconButton>

@@ -63,8 +63,6 @@ export default function Cart() {
 		await placeOrder(order);
 		setIsOrderSuccess(true);
 		resetCartItems();
-
-		console.log("Data removed");
 	}
 	async function getProduct(cart: ICart) {
 		try {
