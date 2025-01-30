@@ -15,6 +15,7 @@ import { ICart } from "../interfaces/cart";
 import { IOrder } from "../interfaces/order";
 import { IProduct } from "../interfaces/product";
 import CartItem from "./CartItem";
+import axios from "axios";
 
 export default function Cart() {
 	const [cartList, setCartList] = useState([]);
@@ -39,16 +40,25 @@ export default function Cart() {
 			body: JSON.stringify(order),
 		});
 	}
+	// async function resetCartItems() {
+	// 	const response = await fetch("http://localhost:3001/cart");
+	// 	const cartData = await response.json();
+
+	// 	const deletePromises = cartData.map((item: ICart) =>
+	// 		fetch(`http://localhost:3001/cart/${item.id}`, {
+	// 			method: "DELETE",
+	// 		})
+	// 	);
+
+	// 	await Promise.all(deletePromises);
+	// }
+
 	async function resetCartItems() {
-		const response = await fetch("http://localhost:3001/cart");
-		const cartData = await response.json();
-
+		const cartData = (await axios.get(`http://localhost:3001/cart/`)).data;
+		// const cartData = response.data;
 		const deletePromises = cartData.map((item: ICart) =>
-			fetch(`http://localhost:3001/cart/${item.id}`, {
-				method: "DELETE",
-			})
+			axios.delete(`http://localhost:3001/cart/${item.id}`)
 		);
-
 		await Promise.all(deletePromises);
 	}
 

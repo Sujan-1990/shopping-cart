@@ -7,7 +7,7 @@
       "imgSrc": "https://m.media-amazon.com/images/I/8189uwDnMkL._AC_SL1500_.jpg",
       "price": 122,
       "available": true,
-      "quantity": 8
+      "quantity": 0
     },
     {
       "id": "2",
@@ -55,14 +55,7 @@
       "quantity": 11
     }
   ],
-  "cart": [
-    {
-      "id": "1736771354841",
-      "productId": "1",
-      "quantity": 3,
-      "productName": "Mouse"
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "id": "1736764688211",
@@ -103,6 +96,18 @@
           "productId": "5",
           "quantity": 2,
           "productName": "Headphone"
+        }
+      ]
+    },
+    {
+      "id": "1738048975050",
+      "createdAt": "2025-01-28T07:22:55.050Z",
+      "items": [
+        {
+          "id": "1736771354841",
+          "productId": "1",
+          "quantity": 3,
+          "productName": "Mouse"
         }
       ]
     }
