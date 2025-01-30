@@ -7,7 +7,7 @@ export default function Login({ setAuthData }: { setAuthData: any }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorUser, setErrorUser] = useState(false);
-	const [localStorage, setLocalStorage] = useLocalStorage({}, "loggedInUser");
+	const [setLocalStorage] = useLocalStorage({}, "loggedInUser");
 	const navigate = useNavigate();
 
 	async function handleLogin(e: any) {
